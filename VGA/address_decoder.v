@@ -1,0 +1,1 @@
+//turns the (x,y) value on the screen into a RAM address to retrieve a pixel entry from a BRAM
