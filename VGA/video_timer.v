@@ -15,8 +15,8 @@ module Video_Timer #(
     input rst,
     output reg hsync,
     output reg vsync,
-    output reg [xbitWidth:0] x,
-    output reg [ybitWidth:0] y,
+    output reg [xbitWidth-1:0] x,
+    output reg [ybitWidth-1:0] y,
     output validpixel
 );
     //veritcal timing: vsync -> back porch -> stream video -> front porch
@@ -78,7 +78,7 @@ module Video_Timer #(
                 hsync <= 1;
             end
             else begin
-                hsyc <= 0;
+                hsync <= 0;
             end
             if(x < hvid_start || x > hvid_end) begin
                 hvalid <= 0;
@@ -100,7 +100,7 @@ module Video_Timer #(
                 vsync <= 1;
             end
             else begin
-                vsyc <= 0;
+                vsync <= 0;
             end
             if(y < vvid_start || y > vvid_end) begin
                 vvalid <= 0;
