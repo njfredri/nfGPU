@@ -1,4 +1,4 @@
-module video_driver #(
+module color_converter #(
     parameter bpc=4,
     parameter bpc_out=4,
     parameter RCoorBits = 8; //doing just 8 for now as it's 256x180 image.
@@ -10,10 +10,6 @@ module video_driver #(
     output [bpc_out-1:0] red,
     output [bpc_out-1:0] green,
     output [bpc_out-1:0] blue,
-    output hsync_out,
-    output vsync_out,
-    output rendx,
-    output rendy
 );
 
 localparam bpcLargerDiff = bpc - bpc_out; //if bpc > bpc_out
@@ -43,7 +39,5 @@ generate
         assign blue = b[bpc-1:bpc-bpc_out];
     end
 endgenerate
-
-//convert output x and y to render x and y
 
 endmodule
