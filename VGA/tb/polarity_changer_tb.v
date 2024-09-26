@@ -72,5 +72,7 @@ module polarity_changer_tb();
             passed = passed + 1;
         end
         checks = checks + 1;
+        #5
+        #$display("Passsed %d /  %d checks", passed, checks);
     end
 endmodule
