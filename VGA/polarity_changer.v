@@ -9,7 +9,7 @@ module polarity_changer #(parameter HPOL=0, parameter VPOL=1)
         if(HPOL==1) begin
             assign hsynco = ~hsync;
         end else begin
-            assign hsynco =~hsync;
+            assign hsynco = hsync;
         end
     endgenerate
 

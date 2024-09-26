@@ -4,10 +4,10 @@ module polarity_changer_tb();
     // module polarity_changer #(parameter HPOL=0, parameter VPOL=1)
 
     //all 4 configs
-    polarity_changer pc00 #(.HPOL(0), .VPOL(0))(.hsync(hin), .vsync(vin), .hsynco(hout[0]), .vsynco(vout[0]));
-    polarity_changer pc01 #(.HPOL(0), .VPOL(1))(.hsync(hin), .vsync(vin), .hsynco(hout[1]), .vsynco(vout[1]));
-    polarity_changer pc10 #(.HPOL(1), .VPOL(0))(.hsync(hin), .vsync(vin), .hsynco(hout[2]), .vsynco(vout[2]));
-    polarity_changer pc11 #(.HPOL(1), .VPOL(1))(.hsync(hin), .vsync(vin), .hsynco(hout[3]), .vsynco(vout[3]));
+    polarity_changer #(.HPOL(0), .VPOL(0)) pc00 (.hsync(hin), .vsync(vin), .hsynco(hout[0]), .vsynco(vout[0]));
+    polarity_changer #(.HPOL(0), .VPOL(1)) pc01 (.hsync(hin), .vsync(vin), .hsynco(hout[1]), .vsynco(vout[1]));
+    polarity_changer #(.HPOL(1), .VPOL(0)) pc10 (.hsync(hin), .vsync(vin), .hsynco(hout[2]), .vsynco(vout[2]));
+    polarity_changer #(.HPOL(1), .VPOL(1)) pc11 (.hsync(hin), .vsync(vin), .hsynco(hout[3]), .vsynco(vout[3]));
 
     integer checks = 0;
     integer passed = 0;
@@ -32,20 +32,32 @@ module polarity_changer_tb();
         if(hout==4'b1100) begin //hin is 0
             passed = passed + 1;
         end
+        else begin
+            $display("\n Failed hin=%b. Got %b as output\n", hin, hout);
+        end
         checks = checks + 1;
         #5
         if(hout==4'b1100) begin //hin is 0
             passed = passed + 1;
         end
-        checks = checks + 1;
-        #5
-        if(hout==4'0011) begin //hin is now 1
-            passed = passed + 1;
+        else begin
+            $display("\n Failed hin=%b. Got %b as output\n", hin, hout);
         end
         checks = checks + 1;
         #5
-        if(hout==4'0011) begin
+        if(hout==4'b0011) begin //hin is now 1
             passed = passed + 1;
+        end
+        else begin
+            $display("\n Failed hin=%b. Got %b as output\n", hin, hout);
+        end
+        checks = checks + 1;
+        #5
+        if(hout==4'b0011) begin
+            passed = passed + 1;
+        end
+        else begin
+            $display("\n Failed hin=%b. Got %b as output\n", hin, hout);
         end
         checks = checks + 1;
     end
@@ -53,7 +65,7 @@ module polarity_changer_tb();
     //check vout
     initial begin
         #1
-        if(vout==4'1010) begin //vin is 0. lsb is not inverted
+        if(vout==4'b1010) begin //vin is 0. lsb is not inverted
             passed = passed + 1;
         end
         checks = checks + 1;
@@ -63,7 +75,7 @@ module polarity_changer_tb();
         end
         checks = checks + 1;
         #5
-        if(vout==4'1010) begin //vin is now 0
+        if(vout==4'b1010) begin //vin is now 0
             passed = passed + 1;
         end
         checks = checks + 1;
@@ -71,8 +83,8 @@ module polarity_changer_tb();
         if(vout==4'b0101) begin //vin is now 1
             passed = passed + 1;
         end
-        checks = checks + 1;
         #5
-        #$display("Passsed %d /  %d checks", passed, checks);
+        checks = checks + 1;
+        $display("\n Polarity Changer Passed %d /  %d checks\n", passed, checks);
     end
 endmodule

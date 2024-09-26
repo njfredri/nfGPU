@@ -1,0 +1,4 @@
+vivado*
+*.log
+VGA/sim/.Xil
+VGA/sim/polarity_changer_tb
