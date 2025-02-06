@@ -5,3 +5,6 @@ Each submodule is also responsible for converting their outputs to the expected 
 
 Video driver will be responsible for converting render resolution to output resolution (e.g. 576p renderred upscaled to 720p);
 To do this, the x and y will need to be translated from output coordinates to render coordinates
+
+*Edit, new idea, each submodule output generates a scanline. The VGA driver will use the x to read along the scanline while the y will determine what the next scanline will be. This will likely need to be pipelined.
+The scanlines for a line will be calculated at the hblank of the previous line.
